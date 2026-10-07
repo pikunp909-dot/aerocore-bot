@@ -1,0 +1,14 @@
+name: Keep Render Bot Alive
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping bot
+        run: |
+          curl -s https://aerocore-bot.onrender.com/health || true

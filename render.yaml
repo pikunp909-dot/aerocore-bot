@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: aerocore-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    healthCheckPath: /health
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: AEROCORE_PRIVATE_KEY
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
