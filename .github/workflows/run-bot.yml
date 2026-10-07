@@ -1,0 +1,24 @@
+name: Run Telegram Bot
+
+on:
+  schedule:
+    - cron: "0 */5 * * *"
+  workflow_dispatch:
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Start bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          AEROCORE_PRIVATE_KEY: ${{ secrets.AEROCORE_PRIVATE_KEY }}
+          ADMIN_IDS: ${{ secrets.ADMIN_IDS }}
+        run: timeout 21000 python bot.py || true
